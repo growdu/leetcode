@@ -64,17 +64,15 @@ int cmp_by_name(struct student *st1, struct student *st2)
     return strcmp(st1->name, st2->name);
 }
 
-void uthash_test()
+void uthash_int_test()
 {
     struct student *head = NULL;
+    printf("=======test uthash int key=======\n");
     head = add_student(head, 3, "tom");
-    //head = 
     add_student(head, 88, "linda");
-    //head = 
     add_student(head, 388, "marry");
-    //head = 
     add_student(head, 188, "lisa");
-    //head = 
+    add_student(head, 944, "mock");
     add_student(head, 688, "jack");
     printf("add %d student, they are :\n", HASH_COUNT(head));
     print_student(head);
@@ -85,4 +83,36 @@ void uthash_test()
     printf("student sort by id is :\n");
     print_student(head);
     printf("id(88)'s student's name is %s\n", (find_student(head, 88))->name);
+    printf("=======test uthash int key=======\n");
+}
+
+void uthash_string_test()
+{
+    printf("=======test uthash string key=======\n");
+    struct student *head = NULL;
+    for (int i = 0; i < 10; i++ ) {
+        struct student *st = (struct student *)malloc(sizeof(struct student));
+        st->id = i;
+        sprintf(st->name, "%d", i+10);
+        HASH_ADD_STR(head, name, st);
+    }
+    print_student(head);
+    HASH_SORT(head, cmp);
+    printf("student sort by id is :\n");
+    print_student(head);
+    HASH_SORT(head, cmp_by_name);
+    printf("student sort by name is :\n");
+    print_student(head);
+    struct student *s;
+    HASH_FIND_STR(head, "12", s);
+    if (s != NULL) {
+        printf("student id is %d, name is %s\n", s->id, s->name);
+    }
+    printf("=======test uthash string key=======\n");
+}
+
+void uthash_test()
+{
+    uthash_int_test();
+    uthash_string_test();
 }

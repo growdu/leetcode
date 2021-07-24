@@ -34,6 +34,7 @@ struct char_node* char_node_create(char c)
     struct char_node *node = (struct char_node *)malloc(sizeof(struct char_node));
     node->c = c;
     INIT_LIST_HEAD(node);
+    return node;
 }
 
 void char_list_append(struct char_list* list, char c)
